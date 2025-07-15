@@ -55,13 +55,23 @@ GUARDIAN_API_KEY=your_guardian_api_key_here
 
 ### 4. Run the Analyzer
 
+You can run the analyzer using either of these methods:
+
+**Method 1: Using the main entry point**
+
+```bash
+python run_analyzer.py
+```
+
+**Method 2: Using the module directly**
+
 ```bash
 python src/main.py
 ```
 
 ### 5. View Results
 
-Open `reports/crypto_sentiment_report.html` in your web browser to view the generated report.
+Open `reports/crypto_sentiment_report_{timestamp}.html` in your web browser to view the generated report.
 
 ## 📁 Project Structure
 
@@ -86,20 +96,38 @@ CryptoMarketSentimentAnalyzer/
 │       ├── config.py           # Configuration management
 │       └── logger.py           # Logging utilities
 ├── reports/                    # Generated reports directory
+├── logs/                       # Application logs
+├── data/                       # Raw data storage
 ├── tests/                      # Unit tests
 ├── requirements.txt            # Python dependencies
 ├── config.yaml                # Configuration file
+├── run_analyzer.py            # Main entry point script
+├── run_tests.py               # Test runner script
+├── .env.example               # Environment variables template
+├── .gitignore                 # Git ignore rules
 └── README.md                  # This file
 ```
 
 ## 🔧 Configuration
 
+### Environment Variables
+
+The application uses environment variables for sensitive configuration:
+
+- **`NEWSAPI_API_KEY`**: Your NewsAPI key for news data collection
+- **`GUARDIAN_API_KEY`**: Your Guardian API key for news data collection
+
+### Configuration File
+
 Edit `config.yaml` to customize:
 
 - Target cryptocurrencies
 - News search parameters
-- API endpoints
-- Report settings
+- API endpoints and fallbacks
+- Sentiment analysis settings
+- Report styling and output options
+- Logging configuration
+- Error handling parameters
 
 ## 📊 Example Output
 
@@ -113,10 +141,24 @@ The application generates HTML reports with:
 
 ## 🧪 Testing
 
-Run the test suite:
+Run the test suite using either method:
+
+**Method 1: Using the test runner script**
+
+```bash
+python run_tests.py
+```
+
+**Method 2: Using pytest directly**
 
 ```bash
 python -m pytest tests/
+```
+
+**Method 3: Run specific test file**
+
+```bash
+python -m pytest tests/test_config.py
 ```
 
 ## 📈 Supported Cryptocurrencies
@@ -129,14 +171,15 @@ python -m pytest tests/
 
 ### Price Data
 
-- CoinGecko API (primary)
-- CoinCap API (fallback)
-- CryptoCompare API (fallback)
+- **CoinGecko API** (primary) - Free tier with rate limits
+- **CoinCap API** (fallback) - Free tier available
+- **CryptoCompare API** (fallback) - Free tier available
 
 ### News Data
 
-- NewsAPI (primary)
-- Guardian API (fallback)
+- **NewsAPI** (primary) - Free tier: 1,000 requests/day
+- **Guardian API** (fallback) - Free tier: 5,000 requests/day
+- **RSS Feeds** (fallback) - Free crypto news feeds
 
 ## 🛠️ Technical Details
 
@@ -165,10 +208,11 @@ This project was developed using the following approach:
 
 ## ⚠️ Known Limitations
 
-- Free API tiers have rate limits
+- Free API tiers have rate limits (NewsAPI: 1,000/day, Guardian: 5,000/day)
 - News sentiment analysis accuracy depends on article quality
 - Offline sentiment analysis may not match commercial LLM accuracy
 - Historical data analysis not included in current version
+- RSS feeds may have limited or no content for some cryptocurrencies
 
 ## 🤝 Contributing
 
@@ -189,13 +233,27 @@ This project is open source and available under the MIT License.
 1. **API Rate Limits**: The application automatically handles rate limits with exponential backoff
 2. **Network Issues**: Check your internet connection and firewall settings
 3. **Missing Dependencies**: Ensure all requirements are installed with `pip install -r requirements.txt`
+4. **Environment Variables**: Make sure your `.env` file exists and contains valid API keys
+5. **UTF-8 Encoding**: Ensure all configuration files are saved in UTF-8 encoding
 
 ### Debug Mode
 
-Run with debug logging:
+Run with debug logging by editing `config.yaml`:
+
+```yaml
+development:
+  debug_mode: true
+  verbose_output: true
+```
+
+Or run the application and check the logs in the `logs/` directory.
+
+### Log Files
+
+Check the application logs for detailed error information:
 
 ```bash
-python src/main.py --debug
+tail -f logs/crypto_analyzer.log
 ```
 
 ## 📞 Support
