@@ -1,0 +1,135 @@
+# Crypto Market Sentiment Analyzer Configuration
+
+# Target cryptocurrencies
+cryptocurrencies:
+  - symbol: "bitcoin"
+    name: "Bitcoin"
+    ticker: "BTC"
+  - symbol: "ethereum"
+    name: "Ethereum"
+    ticker: "ETH"
+  - symbol: "solana"
+    name: "Solana"
+    ticker: "SOL"
+
+# API Configuration
+apis:
+  crypto:
+    primary: "coingecko"
+    fallbacks: ["coincap", "cryptocompare"]
+    rate_limit_delay: 1.0
+    timeout: 10 # seconds
+    max_retries: 3
+
+  news:
+    primary: "guardian"
+    fallbacks: ["rss"]
+    rate_limit_delay: 1.0
+    timeout: 15
+    max_retries: 3
+
+# API Endpoints
+endpoints:
+  coingecko:
+    base_url: "https://api.coingecko.com/api/v3"
+    price_endpoint: "/simple/price"
+    market_data_endpoint: "/coins/markets"
+
+  coincap:
+    base_url: "https://api.coincap.io/v2"
+    assets_endpoint: "/assets"
+
+  cryptocompare:
+    base_url: "https://min-api.cryptocompare.com/data"
+    price_endpoint: "/price"
+    market_data_endpoint: "/top/mktcapfull"
+
+  newsapi:
+    base_url: "https://newsapi.org/v2"
+    search_endpoint: "/top-headlines"
+    api_key: null # Will be loaded from NEWSAPI_API_KEY environment variable
+
+  guardian:
+    base_url: "https://content.guardianapis.com"
+    search_endpoint: "/search"
+    api_key: null # Will be loaded from GUARDIAN_API_KEY environment variable
+
+# News Configuration
+news:
+  search_terms:
+    bitcoin: ["bitcoin", "BTC", "cryptocurrency", "crypto"]
+    ethereum:
+      [
+        "ethereum",
+        "ETH",
+        "Ethereum",
+        "ether",
+        "blockchain",
+        "defi",
+        "DeFi",
+        "smart contracts",
+      ]
+    solana: ["solana", "SOL", "blockchain", "cryptocurrency"]
+
+  time_period: "48h"
+  max_articles_per_crypto: 5
+  min_article_length: 20
+
+# Sentiment Analysis Configuration
+sentiment:
+  analyzers: ["textblob", "vader"]
+  confidence_threshold: 0.1
+  normalize_scores: true
+
+  # VADER specific settings
+  vader:
+    use_compound: true
+    adjust_for_length: true
+
+  # TextBlob specific settings
+  textblob:
+    use_subjectivity: true
+    language: "en"
+
+# Report Configuration
+report:
+  output_dir: "reports"
+  filename_template: "crypto_sentiment_report_{timestamp}.html"
+  include_timestamp: true
+  auto_open: false
+
+  # HTML styling
+  styling:
+    primary_color: "#1f77b4"
+    secondary_color: "#ff7f0e"
+    success_color: "#2ca02c"
+    danger_color: "#d62728"
+    warning_color: "#ff7f0e"
+    info_color: "#17a2b8"
+
+    # Table styling
+    table_header_bg: "#f8f9fa"
+    table_stripe_bg: "#f8f9fa"
+    table_border_color: "#dee2e6"
+
+# Logging Configuration
+logging:
+  level: "INFO" # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/crypto_analyzer.log"
+  max_file_size: "10MB"
+  backup_count: 5
+
+# Error Handling
+error_handling:
+  max_consecutive_failures: 3
+  exponential_backoff: true
+  backoff_factor: 2.0
+  max_backoff_time: 60 # seconds
+
+# Development Settings
+development:
+  debug_mode: false
+  verbose_output: false
+  save_raw_data: false
+  data_dir: "data"
