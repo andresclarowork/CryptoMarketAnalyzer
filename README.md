@@ -161,6 +161,12 @@ python -m pytest tests/
 python -m pytest tests/test_config.py
 ```
 
+**Method 4: Test RSS integration specifically**
+
+```bash
+python test_rss_integration.py
+```
+
 ## 📈 Supported Cryptocurrencies
 
 - Bitcoin (BTC)
@@ -179,9 +185,30 @@ python -m pytest tests/test_config.py
 
 - **NewsAPI** (primary) - Free tier: 1,000 requests/day
 - **Guardian API** (fallback) - Free tier: 5,000 requests/day
-- **RSS Feeds** (fallback) - Free crypto news feeds
+- **RSS Feeds** (complementary) - Free crypto news feeds from multiple sources
 
 ## 🛠️ Technical Details
+
+### News Collection Strategy
+
+The application uses a **combined approach** for news collection:
+
+1. **Primary API**: Collects articles from the configured primary news API (NewsAPI or Guardian)
+2. **RSS Feeds**: Always collects from multiple crypto-focused RSS feeds for comprehensive coverage
+3. **Fallback APIs**: Uses additional APIs if primary fails
+4. **Deduplication**: Removes duplicate articles based on URL and title similarity
+5. **Relevance Sorting**: Ranks articles by relevance to the cryptocurrency and recency
+
+**RSS Feed Sources:**
+
+- Cointelegraph
+- CryptoNews
+- Bitcoin Magazine
+- Decrypt
+- CoinDesk
+- NewsBTC
+- CryptoSlate
+- And more...
 
 ### Sentiment Analysis Libraries
 

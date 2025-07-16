@@ -57,19 +57,59 @@ endpoints:
 # News Configuration
 news:
   search_terms:
-    bitcoin: ["bitcoin", "BTC", "cryptocurrency", "crypto"]
+    bitcoin:
+      [
+        "Bitcoin",
+        "BTC",
+        "bitcoin price",
+        "bitcoin market",
+        "bitcoin adoption",
+        "bitcoin halving",
+        "bitcoin mining",
+        "bitcoin ETF",
+        "bitcoin regulation",
+        "bitcoin network",
+        "bitcoin transaction",
+        "bitcoin wallet",
+        "bitcoin exchange",
+      ]
     ethereum:
       [
-        "ethereum",
-        "ETH",
         "Ethereum",
-        "ether",
-        "blockchain",
-        "defi",
-        "DeFi",
-        "smart contracts",
+        "ETH",
+        "ethereum price",
+        "ethereum market",
+        "ethereum gas",
+        "ethereum staking",
+        "ethereum merge",
+        "ethereum upgrade",
+        "ethereum defi",
+        "ethereum smart contract",
+        "ethereum dapp",
+        "ethereum validator",
+        "ethereum layer 2",
+        "ethereum scaling",
+        "ethereum sharding",
       ]
-    solana: ["solana", "SOL", "blockchain", "cryptocurrency"]
+    solana:
+      [
+        "Solana",
+        "SOL",
+        "solana price",
+        "solana market",
+        "solana blockchain",
+        "solana validator",
+        "solana staking",
+        "solana defi",
+        "solana nft",
+        "solana dapp",
+        "solana transaction",
+        "solana network",
+        "solana upgrade",
+        "solana ecosystem",
+        "solana developer",
+        "solana hackathon",
+      ]
 
   time_period: "48h"
   max_articles_per_crypto: 5
